@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(name='automatagl',
-      version='3.0',
+      version='3.0.1',
       description='A CLI application to create user accounts on Linux systems from Gitlab users/group information.',
       author='Jason Weatherly',
       author_email='jason.weatherly@myquestis.com',

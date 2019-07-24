@@ -1,7 +1,10 @@
 import logging
 import os
 import re
+import sys
 import yaml
+
+from pathlib import Path
 from automatagl.helpers.gitlab_operations import GitlabServerConfig, GitlabGroupConfig
 
 
@@ -104,6 +107,12 @@ class ConfigOps:
         :param filename: The file to parse the configuration from
         :return: The contents of the configuration file after being parsed.
         """
+        path = Path(filename)
+        perms = path.stat().st_mode
+        if bool(perms % 0o100):
+            print("WARNING: The permissions on '{}' must be set to restrict access from all users.  Consider changing"
+                  "the permissions to 400 or more secure.")
+            sys.exit(15)
         with open(filename, 'r') as stream:
             try:
                 return yaml.safe_load(stream)
