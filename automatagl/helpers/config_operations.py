@@ -111,7 +111,7 @@ class ConfigOps:
         perms = path.stat().st_mode
         if bool(perms % 0o100):
             print("WARNING: The permissions on '{}' must be set to restrict access from all users.  Consider changing"
-                  "the permissions to 400 or more secure.")
+                  "the permissions to 400 or more secure.".format(filename))
             sys.exit(15)
         with open(filename, 'r') as stream:
             try:
