@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-setup(name='automata',
+setup(name='gitlab-automata',
         version='3.0',
         description='A CLI application to create user accounts on Linux systems from Gitlab users/group information.',
         author='Jason Weatherly',
@@ -10,7 +10,7 @@ setup(name='automata',
         zip_safe=False,
         entry_points={
             'console_scripts': [
-                'automata=automata.automata:main',
+                'automata=gitlab-automata.automata:main',
             ],
         },
         install_requires=[
