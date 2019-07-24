@@ -5,9 +5,9 @@ import shlex
 import subprocess
 import sys
 from typing import Set, List
-from helpers.ssh_key_object import SSHKeyObject
-from helpers.gitlab_operations import GitlabGroupConfig
-from helpers.config_operations import sanitize_sudoers_line, sanitize_username
+from automatagl.helpers.ssh_key_object import SSHKeyObject
+from automatagl.helpers.gitlab_operations import GitlabGroupConfig
+from automatagl.helpers.config_operations import sanitize_sudoers_line, sanitize_username
 
 __all__ = [
     "UserOps",

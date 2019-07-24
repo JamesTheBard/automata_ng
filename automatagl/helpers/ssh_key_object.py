@@ -1,4 +1,4 @@
-from helpers.config_operations import sanitize_username
+from automatagl.helpers.config_operations import sanitize_username
 
 
 class SSHKeyObject:

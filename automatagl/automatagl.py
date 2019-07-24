@@ -4,10 +4,11 @@ import logging
 import os
 import sys
 
-from .helpers.config_operations import ConfigOps, sanitize_username
-from .helpers.ssh_key_object import SSHKeyObject
-from .helpers.user_operations import *
-from .helpers.gitlab_operations import *
+from automatagl.helpers.config_operations import ConfigOps, sanitize_username
+from automatagl.helpers.ssh_key_object import SSHKeyObject
+from automatagl.helpers.user_operations import *
+from automatagl.helpers.gitlab_operations import *
+
 
 def main():
 

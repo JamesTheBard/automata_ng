@@ -2,7 +2,7 @@ import logging
 import os
 import re
 import yaml
-from helpers.gitlab_operations import GitlabServerConfig, GitlabGroupConfig
+from automatagl.helpers.gitlab_operations import GitlabServerConfig, GitlabGroupConfig
 
 
 # Dictionary to translate logging levels in the config file
