@@ -10,7 +10,7 @@ setup(name='automata_gitlab',
         zip_safe=False,
         entry_points={
             'console_scripts': [
-                'automata = automata:automata:main',
+                'automata=automata:automata:main',
             ],
         },
         install_requires=[
