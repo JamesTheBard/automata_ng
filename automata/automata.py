@@ -15,7 +15,7 @@ def main():
     os.chdir(working_dir)
 
     # Grab configuration information
-    config_ops = ConfigOps(filename='automata.conf')
+    config_ops = ConfigOps(filename='/etc/automata/automata.conf')
 
     # Logging configuration
     logging_config = config_ops.get_logging_config()
