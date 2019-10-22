@@ -69,7 +69,7 @@ def main():
 
         # Start removing users with extreme prejudice that are no longer in the GitLab group.
         current_users = user_ops.get_all_users_in_group(linux_group_id)
-        gitlab_users = set([sanitize_username(i.username) for i in ssh_list])
+        gitlab_users = {sanitize_username(i.username) for i in ssh_list}
         removed_users = current_users - gitlab_users
         if removed_users:
             logging.info("Found {} users to delete in group {}: {}".format(

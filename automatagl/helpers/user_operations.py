@@ -184,8 +184,8 @@ class UserOps:
         :return: A Set of users associated with the group
         """
         group_info = grp.getgrgid(gid)
-        passwd_users = set([sanitize_username(i[0]) for i in pwd.getpwall() if i[3] == gid])
-        group_users = set([sanitize_username(i) for i in group_info[-1]])
+        passwd_users = {sanitize_username(i[0]) for i in pwd.getpwall() if i[3] == gid}
+        group_users = {sanitize_username(i) for i in group_info[-1]}
         return group_users.union(passwd_users)
 
     @staticmethod
