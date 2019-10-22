@@ -13,7 +13,7 @@ Access to GitLab requires a token that has API access.
 
 ## Configuration
 
-All configuration options are contained within the `automata.yaml` file.
+All configuration options are contained within the `/etc/automata/automata.yaml` file.
 
 
 ```yaml
@@ -61,25 +61,10 @@ logging:
 
 You will need to install Python 3 for this to work.  It will not work under Python 2 without some major changes.
 
-1. Copy everything to a directory like `/opt/automata`.
-2. Navigate to `/opt/automata` and create the Python virtual environment:
+The easiest way to install this would be to use the package hosted at `https://pypi.fury.io/jweatherly/automatagl`.
+The basic command to get this going is `pip3 install --index-url https://pypi.fury.io/USERNAME/ 
+--extra-index-url https://pypi.org/simple/
+automatagl`
 
-   ```console
-   $ cd /opt/automata
-   $ python3 -m venv venv
-   ```
-
-3. Install all of the requirements in the `requirements.txt` file
-
-   ```console
-   $ source venv/bin/activate
-   $ pip install -r requirements.txt
-   ```
-
-4. Copy the `automata.conf.example.yaml` file to `automata.conf` and edit the `automata.conf` file with the appropriate settings.
-
-5. Run the `automata` script, and let it do it's magic.
-
-   ```console
-   $ python automata.py
-   ```
+You can also clone the repository and point `pip` at the repository which will be the freshest stuff you can
+install.
