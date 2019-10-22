@@ -62,7 +62,7 @@ logging:
 You will need to install Python 3 for this to work.  It will not work under Python 2 without some major changes.
 
 The easiest way to install this would be to use the package hosted at `https://pypi.fury.io/jweatherly/automatagl`.
-The basic command to get this going is `pip3 install --index-url https://pypi.fury.io/USERNAME/ 
+The basic command to get this going is `pip3 install --index-url https://pypi.fury.io/jweatherly/ 
 --extra-index-url https://pypi.org/simple/
 automatagl`
 
