@@ -6,4 +6,4 @@ python:
 cache: pip
 install:
   pip install pylint
-script: "pylint"
+script: "pylint automatagl"
