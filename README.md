@@ -11,7 +11,7 @@ keys associated with that user's GitLab account.
 
 Access to GitLab requires a token that has API access.
 
-Latest commit status: ![](https://travis-ci.com/JamesTheBard/automata_ng.svg?branch=master)
+Latest commit status: ![](https://travis-ci.com/JamesTheBard/automata_ng.svg?branch=master) [More Info](https://travis-ci.com/JamesTheBard/automata_ng)
 
 ## Configuration
 
