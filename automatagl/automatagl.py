@@ -71,7 +71,7 @@ def main():
         current_users = user_ops.get_all_users_in_group(linux_group_id)
         gitlab_users = set([sanitize_username(i.username) for i in ssh_list])
         removed_users = current_users - gitlab_users
-        if len(removed_users) > 0:
+        if removed_users:
             logging.info("Found {} users to delete in group {}: {}".format(
                 len(removed_users),
                 group.linux_group,
@@ -91,7 +91,7 @@ def main():
 
         # Create new users in group
         created_users = gitlab_users - current_users
-        if len(created_users) > 0:
+        if created_users > 0:
             logging.info("Found {} users to create in group {}: {}".format(
                 len(created_users),
                 group.linux_group,

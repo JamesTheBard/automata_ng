@@ -1,8 +1,8 @@
+from collections import namedtuple
+from typing import List
 import json
 import os
 import requests
-from collections import namedtuple
-from typing import List
 
 __all__ = [
     'GitlabOps',
@@ -88,7 +88,7 @@ class GitlabOps:
             response = json.loads(requests.get(path, params=self.payload_token).text)
         except requests.exceptions.ConnectionError:
             raise GLConnectionError
-        if type(response) is dict:
+        if isinstance(response, dict):
             if "error" in response.keys():
                 raise GLApiQueryError(message=response["error_description"])
             elif "message" in response.keys():

@@ -1,10 +1,10 @@
+from pathlib import Path
 import logging
 import os
 import re
 import sys
 import yaml
 
-from pathlib import Path
 from automatagl.helpers.gitlab_operations import GitlabServerConfig, GitlabGroupConfig
 
 

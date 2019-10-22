@@ -20,9 +20,9 @@ class SSHKeyObject:
         :param ssh_keys: The ssk_key(s) to add.
         :return:
         """
-        if type(ssh_keys) is list:
+        if isinstance(ssh_keys, list):
             self.ssh_keys = ssh_keys
-        elif type(ssh_keys) is str:
+        elif isinstance(ssh_keys, str):
             self.ssh_keys = [ssh_keys]
         else:
             raise TypeError("SSH keys must either be type 'list' or 'str'.")
