@@ -91,7 +91,7 @@ def main():
 
         # Create new users in group
         created_users = gitlab_users - current_users
-        if created_users > 0:
+        if created_users:
             logging.info("Found {} users to create in group {}: {}".format(
                 len(created_users),
                 group.linux_group,
