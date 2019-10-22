@@ -11,6 +11,8 @@ keys associated with that user's GitLab account.
 
 Access to GitLab requires a token that has API access.
 
+Latest commit status: ![](https://travis-ci.com/JamesTheBard/automata_ng.svg?branch=master)
+
 ## Configuration
 
 All configuration options are contained within the `/etc/automata/automata.yaml` file.
