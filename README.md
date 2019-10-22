@@ -25,6 +25,8 @@ gitlab:
     api_token: "abcdefg1234567"
     sudoers_file: "/etc/sudoers.d/automata"
     home_dir_path: '/home'
+    protected_uid_start: 500
+    protected_gid_start: 500
   groups:
     open-source:
       linux_group: open_source
@@ -45,7 +47,9 @@ logging:
     - `api_address`: The full address to the API endpoint. This should be something like `https://gitlab.myserver.com/api/v4`
     - `api_token`: The token to access the Gitlab API.  This is optional as you can also pass `automata` the access token via the `GL_API_TOKEN` environment variable.
     - `sudoers_file`: The location of the sudoers file to create.
-    - `home_dir_path`: The base path for all user home directories created by `automata` 
+    - `home_dir_path`: The base path for all user home directories created by `automata`
+    - `protected_uid_start`: The user ID where standard users live.  Any user with an ID less than `protected_uid_start` will not be deleted (thus protected)
+    - `protected_gid_start`: The group ID where standard groups live.  Any group with an ID less than `protected_gid_start` will not be deleted.
   - `groups`: All user/group mapping and sudoers configuration information goes under this key.  Each key under this should be the Gitlab group name to use for authentication.  In the example above, the group being used is the `open-source` group on the Gitlab server.  You can specify more than one group, users in the top-most groups will take precedence over the groups defined below them.
     - `linux_group`: The group on the target server to use.  This group will be created if it doesn't exist, and any user in the active state in the Gitlab `open-source` group will be created as part of that group.
     - `sudoers_line`: The settings for the users created by `automata`.  The line will be prepended with the proper group information.
