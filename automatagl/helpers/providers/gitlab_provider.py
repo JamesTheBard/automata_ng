@@ -25,6 +25,7 @@ class GitlabProvider(BaseProvider):
     api_address: str
     config: dict
     payload_token: dict
+    only_active: bool
 
     def __init__(self, config: dict) -> None:
         """
@@ -33,21 +34,21 @@ class GitlabProvider(BaseProvider):
         super().__init__(config)
         self.api_token = config['api_token']
         self.api_address = config['api_address']
+        self.only_active = config['only_active']
         self.payload_token = {
             'private_token': self.api_token,
         }
 
-    def get_users_from_group(self, group: str, only_active: bool = True) -> List[ProviderUser]:
+    def get_users_from_group(self, group: str) -> List[ProviderUser]:
         """
         Get all users from a Gitlab Group
         :param group: The group name in Gitlab
-        :param only_active: Whether to pull all users or only the active ones in Gitlab
         :return: A GitlabUser object with the user information
         """
         users = list()
         path = os.path.join(self.api_address, 'groups/{}/members'.format(group))
         response = self.__process_response_from_server(path)
-        if only_active:
+        if self.only_active:
             members = [GitlabUser(id=i['id'], username=i['username']) for i in response if i['state'] == 'active']
         else:
             members = [GitlabUser(id=i['id'], username=i['username']) for i in response]
@@ -55,12 +56,12 @@ class GitlabProvider(BaseProvider):
             users.append(
                 ProviderUser(
                     username=member.username,
-                    keys=self.__get_keys_from_user_id(member.id)
+                    keys=self.get_keys_from_user_id(member.id)
                 )
             )
         return users
 
-    def __get_keys_from_user_id(self, user_id: int) -> list:
+    def get_keys_from_user_id(self, user_id: int) -> list:
         """
         Get all SSH public keys associated with a given user ID.
         :param user_id: The user ID to query

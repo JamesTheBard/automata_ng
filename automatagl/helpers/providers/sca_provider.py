@@ -32,37 +32,37 @@ class SCAProvider(BaseProvider):
         self.header = {"Authorization": "Bearer {}".format(self.jwt_token)}
 
     def get_users_from_group(self, group: str) -> List[ProviderUser]:
-        group = self.__get_group_from_sca(group)
+        group = self.get_group_from_sca(group)
         if not group:
             return []
-        group_info_path = self.__create_full_path('group/{}'.format(group['id']))
+        group_info_path = self.generate_full_path('group/{}'.format(group['id']))
         group_info = json.loads(requests.get(group_info_path, headers=self.header).text)
         users = list()
         for u in group_info['users']:
             users.append(ProviderUser(username=u['username'], keys=[k['pub_ssh_key'] for k in u['keys']]))
         return users
 
-    def __get_group_from_sca(self, group: str) -> dict:
-        path = self.__create_full_path('groups')
+    def get_group_from_sca(self, group: str) -> dict:
+        path = self.generate_full_path('groups')
         groups = json.loads(requests.get(path, headers=self.header).text)
         group_query = [g for g in groups if g['name'] == group]
         if group_query:
             return group_query[0]
         return {}
 
+    def generate_full_path(self, relative_path: str):
+        return os.path.join(self.address, relative_path)
+
     def __get_jwt_token(self, username: str, password: str):
         payload = {
             "username": username,
             "password": password,
         }
-        path = self.__create_full_path('login')
+        path = self.generate_full_path('login')
         response = json.loads(requests.post(path, json=payload).text)
         if 'access_token' not in response.keys():
             raise SCANotAuthorized(response["message"])
         return response['access_token']
-
-    def __create_full_path(self, relative_path: str):
-        return os.path.join(self.address, relative_path)
 
 
 class SCAError(Exception):

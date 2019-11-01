@@ -4,6 +4,7 @@ config:
   provider_config:
     api_address: "https://gitlab.myquestis.com/api/v4"
     api_token: "abcdefg1234567"
+    only_active: true
 server:
   sudoers_file: "/etc/sudoers.d/automata"
   home_dir_path: '/home'

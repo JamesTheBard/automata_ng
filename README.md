@@ -82,10 +82,12 @@ provider: gitlab
 provider_config:
   api_address: "https://gitlab.myserver.com/api/v4"
   api_token: "abcdefg1234567"
+  only_active: true
 ```
 
 - `api_address`: The API endpoint for the Gitlab server
 - `api_token`: The token used for authentication for Gitlab
+- `only_active`: Only create accounts for users who's state is `active`
 
 ### SCA
 
