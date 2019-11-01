@@ -5,9 +5,10 @@ import shlex
 import subprocess
 import sys
 from typing import Set, List
+
 from automatagl.helpers.ssh_key_object import SSHKeyObject
-from automatagl.helpers.gitlab_operations import GitlabGroupConfig
-from automatagl.helpers.config_operations import sanitize_sudoers_line, sanitize_username
+from automatagl.helpers.provider_operations import AutomataGroupConfig
+from automatagl.helpers.config_parser import sanitize_sudoers_line, sanitize_username
 
 __all__ = [
     "UserOps",
@@ -26,7 +27,7 @@ class UserOps:
     """
 
     base_dir: str
-    default_shell: int
+    default_shell: str
     delete_system_groups: bool
     delete_system_users: bool
     host_env: dict
@@ -150,11 +151,11 @@ class UserOps:
 
     @staticmethod
     def generate_sudoers_file(sudoers_file: str,
-                              gitlab_groups: List[GitlabGroupConfig]) -> None:
+                              gitlab_groups: List[AutomataGroupConfig]) -> None:
         """
         Generates the sudoers file from a list of group configurations
         :param sudoers_file: The location of the sudoers file to create
-        :param gitlab_groups: A list of GitlabGroupConfig objects to parse
+        :param gitlab_groups: A list of AutomataGroupConfig objects to parse
         :return: None
         """
         with open(sudoers_file, 'w') as f:

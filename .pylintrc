@@ -1,2 +1,2 @@
 [MESSAGES CONTROL]
-disable=missing-docstring,invalid-name,logging-format-interpolation,unused-wildcard-import,line-too-long,wildcard-import,too-many-locals,too-many-branches,too-many-statements,too-many-arguments,super-init-not-called,no-else-raise
+disable=missing-docstring,invalid-name,logging-format-interpolation,unused-wildcard-import,line-too-long,wildcard-import,too-many-locals,too-many-branches,too-many-statements,too-many-arguments,super-init-not-called,no-else-raise,too-few-public-methods

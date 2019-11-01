@@ -1,12 +1,10 @@
 from pathlib import Path
 import logging
-import os
 import re
 import sys
 import yaml
 
-from automatagl.helpers.gitlab_operations import GitlabServerConfig, GitlabGroupConfig
-
+from automatagl.helpers.provider_operations import AutomataGroupConfig, ProviderConfig, AutomataConfig
 
 # Dictionary to translate logging levels in the config file
 log_level_dict = {
@@ -23,7 +21,7 @@ class ConfigOps:
 
     filename: str
     raw_config: dict
-    gitlab_config: dict
+    provider_config: dict
     logging_config: dict
     api_token_env: str
 
@@ -34,7 +32,8 @@ class ConfigOps:
         """
         self.filename = filename
         self.raw_config = self.__import_config(filename)
-        self.gitlab_config = self.raw_config['gitlab']['server']
+        self.provider_config = self.raw_config['config']
+        self.server_config = self.raw_config['server']
         self.logging_config = self.raw_config['logging']
         self.api_token_env = api_token_env
 
@@ -52,52 +51,53 @@ class ConfigOps:
             "format": self.logging_config['log_format'],
         }
 
-    def get_gitlab_config(self) -> GitlabServerConfig:
+    def get_server_config(self) -> AutomataConfig:
         """
-        Returns the Gitlab configuration object for the GitlabOps
-        :return: GitlabServerConfig object
+        Return the Automata base configuration from the config file
+        :return: AutomataConfig object
         """
-        # Get Gitlab Group information
-        gitlab_group_data = list()
-        group_info = self.raw_config['gitlab']['groups']
+        group_data = list()
+        group_info = self.server_config['groups']
         for k, v in group_info.items():
             try:
                 other_groups = v['other_groups']
             except KeyError:
                 other_groups = list()
-            temp = GitlabGroupConfig(
-                gitlab_group=k,
+
+            temp = AutomataGroupConfig(
+                provider_group=k,
                 linux_group=v['linux_group'],
                 sudoers_line=sanitize_sudoers_line(v['sudoers_line']),
                 other_groups=other_groups,
             )
-            gitlab_group_data.append(temp)
+            group_data.append(temp)
 
-        # Token information
-        try:
-            token_info = self.gitlab_config['api_token']
-        except KeyError:
-            token_info = os.environ.get(self.api_token_env)
+        protected_uid_start = 1000
+        protected_gid_start = 1000
+        if 'protected_uid_start' in self.server_config.keys():
+            protected_uid_start = self.server_config['protected_uid_start']
+        if 'protected_gid_start' in self.server_config.keys():
+            protected_gid_start = self.server_config['protected_gid_start']
 
-        # Protected UID/GID Processing
-        try:
-            protected_uid_start = self.gitlab_config['protected_uid_start']
-        except KeyError:
-            protected_uid_start = 1000
-        try:
-            protected_gid_start = self.gitlab_config['protected_gid_start']
-        except KeyError:
-            protected_gid_start = 1000
-
-        # Gitlab Server config information
-        return GitlabServerConfig(
-            address=self.gitlab_config['api_address'],
-            token=token_info,
-            groups=gitlab_group_data,
-            sudoers_file=self.gitlab_config['sudoers_file'],
-            home_dir_path=self.gitlab_config['home_dir_path'],
+        return AutomataConfig(
+            groups=group_data,
+            sudoers_file=self.server_config['sudoers_file'],
+            home_dir_path=self.server_config['home_dir_path'],
             protected_uid_start=protected_uid_start,
             protected_gid_start=protected_gid_start,
+        )
+
+    def get_provider_config(self) -> ProviderConfig:
+        """
+        Returns the provider configuration object for the Provider
+        :return: ProviderConfig object
+        """
+        # Get provider information
+        provider = self.provider_config['provider']
+        provider_config = self.provider_config['provider_config']
+        return ProviderConfig(
+            provider=provider,
+            provider_config=provider_config,
         )
 
     @staticmethod
