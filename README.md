@@ -26,7 +26,7 @@ All configuration options are contained within the `/etc/automata/automata.yaml`
 ---
 config:
   provider: gitlab
-  provider_config:
+  config:
     api_address: "https://gitlab.myserver.com/api/v4"
     api_token: "abcdefg1234567"
 server:
@@ -79,7 +79,7 @@ All of these settings will live in the `automata.yaml` configuration file under 
 
 ```yaml
 provider: gitlab
-provider_config:
+config:
   api_address: "https://gitlab.myserver.com/api/v4"
   api_token: "abcdefg1234567"
   only_active: true
@@ -93,7 +93,7 @@ provider_config:
 
 ```yaml
 provider: sca
-provider_config:
+config:
   api_address: "https://scaserver.com"
   username: "username"
   password: "password"
