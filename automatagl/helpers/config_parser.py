@@ -97,7 +97,7 @@ class ConfigOps:
         provider_config = self.provider_config['provider_config']
         return ProviderConfig(
             provider=provider,
-            provider_config=provider_config,
+            config=provider_config,
         )
 
     @staticmethod
