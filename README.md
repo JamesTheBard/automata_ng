@@ -7,7 +7,7 @@ users.
 
 Automata generates a custom `/etc/sudoers.d` access file to give permissions
 to each users as well as populate the user's `authorized_keys` file with the
-keys associated with that user's GitLab account.
+keys associated with that user's account.
 
 Latest commit status: ![](https://travis-ci.com/JamesTheBard/automata_ng.svg?branch=master) [More Info](https://travis-ci.com/JamesTheBard/automata_ng)
 
